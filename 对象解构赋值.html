@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    /*
+    *  1-9、对象的解构与数组有一个重要的不同。数组的元素是按次序排列的，变量的取值由它的位置决定；
+    *  而对象的属性没有次序，变量必须与属性同名，才能取到正确的值。
+    *
+    * */
+   let {foo,bar}={"foo":'zhangsan',"bar":18};
+    console.log(foo);
+    console.log(bar);
+
+    /*
+    * 对象赋值简写
+    * 对象的解构赋值的内部机制，是先找到同名属性，然后再赋给对应的变量。
+    * 真正被赋值的是后者，而不是前者。
+    * */
+//    let  obj={foo:'moumou',bar:'18'};
+    let {foot:baz}={foo:'abc',bar:'cba'};
+//    foot是匹配的模式，baz才是变量。真正被赋值的是变量baz，而不是模式foot。
+//    let {foo:f,bar:b}=obj;
+
+    console.log(baz);
+//    console.log(f);
+//    console.log(b);
+//    console.log(foot);
+//    console.log(bar);
+
+    /*
+    * 1-9、解构也可以用于嵌套结构的对象
+    * 注意，这时p是模式，不是变量，因此不会被赋值。如果p也要作为变量赋值，可以写成下面这样。
+    * p   指带着 p:['hello',{y1:'lisi'}]
+    *
+    * */
+
+    let obj1={
+        p:[
+                'hello',
+            {y1:'lisi'}
+        ]
+    };
+
+    let {p,p:[x6,y1]}=obj1;
+    console.log(x6);
+    console.log(y1);
+    console.log(p);
+
+    /*
+    *
+    * 1-9、下面代码有三次解构赋值，分别是对loc、start、line三个属性的解构赋值。
+    * 注意，最后一次对line属性的解构赋值之中，
+    * 只有line是变量，loc和start都是模式，不是变量。
+    *
+    * 2、对象的解构也可以指定默认值。
+    *
+    * */
+
+    const obj2={
+        loc:{
+            start:{
+                line:1,
+                row:1
+            }
+        }
+    };
+    let {loc,loc:{start},loc:{start:{line}}}=obj2;
+    console.log(line);
+    console.log(start);
+    console.log(loc);
+
+    //下面是嵌套赋值的例子。
+     let obj3={};
+     let arr1=[];
+    ({foo1:obj3.people,bar1:arr1[0]}={foo1:'yangmoumou',bar1:18});
+    console.log(obj3);
+    console.log(arr1);
+
+    let {log,sin,cos}=Math;
+    console.log(log);
+    console.log(sin);
+    console.log(cos);
+</script>
+</body>
+</html>
