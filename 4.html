@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    if(window.XMLHttpRequest){
+       xmlhttp=new XMLHttpRequest();
+    }else{
+        xmlhttp=new ActiveXObject('Microsoft.XMLHTTP')
+    }
+    xmlhttp.open("GET","3.xml",false);
+    xmlhttp.send();
+    xmlDoc=xmlhttp.responseXML;
+    console.log(xmlDoc);
+
+    document.write("<table border='1'>");
+    var x=xmlDoc.getElementsByTagName("CD");
+    for (i=0;i<x.length;i++)
+    {
+        document.write("<tr><td>");
+        document.write(x[i].getElementsByTagName("ARTIST")[0].childNodes[0].nodeValue);
+        document.write("</td><td>");
+        document.write(x[i].getElementsByTagName("TITLE")[0].childNodes[0].nodeValue);
+        document.write("</td></tr>");
+    }
+    document.write("</table>");
+</script>
+</body>
+</html>

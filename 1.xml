@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/css" href="cd_catalog.css"?>
+<CATALOG>
+    <CD>
+        <TITLE>威武！中国第二艘航空母舰今天下水</TITLE>
+        <!--<ARTIST>Bob Dylan</ARTIST>-->
+        <!--<TIME>2017/04/26</TIME>-->
+        <IMG></IMG>
+        <COUNTRY>我国第二艘航空母舰下水仪式26日上午在中国船舶重工集团公司大连造船厂举行。中共中央政治局委员、中央军委副主席范长龙出席仪式并致辞。</COUNTRY>
+        <COMPANY></COMPANY>
+        <PRICE>详情</PRICE>
+        <YEAR> ></YEAR>
+    </CD>
+</CATALOG>

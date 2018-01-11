@@ -1,0 +1,67 @@
+CATALOG
+{
+    background-color: #ffffff;
+    width:540px;
+    min-height:300px;
+    margin: 50px auto 0;
+    border: 1px solid #ccc;
+    /*text-align: center;*/
+    cursor: pointer;
+}
+CD
+{
+    width: 525px;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 30pt;
+    margin-left: 0;
+}
+TITLE
+{
+    color: #FF0000;
+    font-size: 13pt;
+    letter-spacing:5px;
+}
+TIME{
+    display: block;
+    text-align: left;
+
+}
+IMG{
+    display: block;
+    /*width:505px;*/
+    min-height:300px;
+    background:url('3452f21.jpg')center center;
+}
+COMPANY{
+    display: block;
+    width:500px;
+    height: 30px;
+    margin: 0 auto;
+    border-bottom: 1px solid #ccc;
+}
+ARTIST
+{
+    color: #0000FF;
+    font-size: 20pt;
+}
+PRICE{
+    display:inline-block;
+    margin:20px 20px 8px 8px;
+}
+YEAR{
+    float: right;
+    margin-top: 20px;
+    margin-right:20px;
+}
+TITLE,OUNTRY,COUNTRY,TIME,IMG,CD
+{
+    display: block;
+    color: #000000;
+    /*margin-left:20pt;*/
+    font-size: 13px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-left:8px;
+    margin-right:8px;
+}

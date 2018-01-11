@@ -1,0 +1,263 @@
+/*
+
+1、正则扩展
+
+*/
+
+
+  一、sticky 属性 § ?
+    与y修饰符相匹配，ES6 的正则对象多了sticky属性，表示是否设置了y修饰符。
+
+    var r = /hello\d/y;
+    r.sticky // true
+
+  二、flags 属性
+    ES6 为正则表达式新增了flags属性，会返回正则表达式的修饰符。
+    var r = /hello\d/y;
+    r.flags // y
+
+  三、s 修饰符：dotAll 模式
+    正则表达式中，点（.）是一个特殊字符，代表任意的单个字符，但是行终止符（line terminator character）除外。
+
+    以下四个字符属于”行终止符“。
+
+    U+000A 换行符（\n）
+    U+000D 回车符（\r）
+    U+2028 行分隔符（line separator）
+    U+2029 段分隔符（paragraph separator）
+
+    /foo.zip/.test(foo\nzip);  //  false;
+
+  四、后行断言
+
+    ”先行断言“指的是，x只有在y前面才匹配，必须写成/x(?=y)/。
+    比如，只匹配百分号之前的数字，
+    要写成/\d+(?=%)/。”先行否定断言“指的是，
+    x只有不在y前面才匹配，必须写成/x(?!y)/。比如，
+    只匹配不在百分号之前的数字，要写成/\d+(?!%)/。
+
+    “后行断言”正好与“先行断言”相反，x只有在y后面才匹配，必须写成/(?<=y)x/。比如，
+    只匹配美元符号之后的数字，要写成/(?<=\$)\d+/。”后行否定断言“则与”先行否定断言“相反，
+    x只有不在y后面才匹配，必须写成/(?<!y)x/。比如，
+    只匹配不在美元符号后面的数字，要写成/(?<!\$)\d+/。
+
+
+    /*
+
+    ecmascript  关键字
+
+    */
+
+
+    break case catch continue default delete do else finally for  function if in  instanceof new  return  switch
+    this  throw try typeof  var void while  with
+
+    不可使用关键字作为变量和函数名（报identifier  Expeted）
+
+
+    /*
+
+        ecmascript  保留字
+
+    */
+
+    abstract
+    boolean
+    byte
+    char
+    class
+    const
+    debugger
+    double
+    enum
+    export
+    extends
+    final
+    float
+    goto
+    implements
+    import
+    int
+    interface
+    long
+    native
+    package
+    private
+    protected
+    public
+    short
+    static
+    super
+    synchronized
+    throws
+    transient
+    volatile
+    /*
+
+          ecmascript  值  分为原始值和引用值
+
+          Undefined、Null、Boolean、Number 和 String。ECMA-262   五种
+          把术语类型（type）定义为值的一个集合，每种原始类型定义了它包含的值的范围及其字面量表示形式。
+          原始值利用typeof  来检测
+
+    */
+
+    undefined 是声明了变量但未对其初始化时赋予该变量的值，null
+    则用于表示尚未存在的对象（在讨论 typeof 运算符时，简单地介绍过这一点）。
+    如果函数或方法要返回的是对象，那么找不到该对象时，返回的通常是 null。
+
+    Number 类型
+    ECMA-262 中定义的最特殊的类型是 Number 类型。这种类型既可以表示 32 位的整数，还可以表示 64 位的浮点数。
+    浮点数总位数6位数或6位数以上  采用科学计数法
+    isNaN() 判断非数
+
+    String 类型
+
+    String 类型的独特之处在于，它是唯一没有固定大小的原始类型。可以用字符串存储 0
+    或更多的 Unicode 字符，有 16 位整数表示（Unicode 是一种国际字符集，本教程后面将讨论它）。
+    字符串中的转义：
+    字面量	含义
+    \n	换行
+    \t	制表符
+    \b	空格
+    \r	回车
+    \f	换页符
+    \\	反斜杠
+    \'	单引号
+    \"	双引号
+    \0nnn	八进制代码 nnn 表示的字符（n 是 0 到 7 中的一个八进制数字）
+    \xnn	十六进制代码 nn 表示的字符（n 是 0 到 F 中的一个十六进制数字）
+    \unnnn	十六进制代码 nnnn 表示的 Unicode 字符（n 是 0 到 F 中的一个十六进制数字）
+
+  /*
+
+      转换为字符串
+
+      转换成字符串
+      ECMAScript 的 Boolean 值、数字和字符串的原始值的有趣之处在于它们是伪对象，
+      这意味着它们实际上具有属性和方法。
+
+
+  */
+
+  Boolean 类型的 toString() 方法只是输出 "true" 或 "false"，结果由变量的值决定：
+  Number  类型的 toString() 分为默认模式和基模式。
+
+  默认模式：
+  在默认模式中，无论最初采用什么表示法声明数字，Number 类型的 toString() 方法返回的都是数字的十进制表示。
+  因此，以八进制或十六进制字面量形式声明的数字输出的都是十进制形式的。
+  基模式
+  采用 Number 类型的 toString() 方法的基模式，
+  可以用不同的基输出数字，例如二进制的基是 2，八进制的基是 8，十六进制的基是 16。
+
+  var num=10;
+  num.toString(2);  //  1010
+  num.toString(8);  //  12
+  num.toString(16); //  A
+
+
+  转换成数字
+  ECMAScript 提供了两种把非数字的原始值转换成数字的方法，即 parseInt() 和 parseFloat()。
+  parseFloat()
+  parseFloat() 方法与 parseInt() 方法的处理方式相似，
+  从位置 0 开始查看每个字符，直到找到第一个非有效的字符为止，然后把该字符之前的字符串转换成整数。
+
+  /*
+
+  强制转换：Boolean()  number()  string()
+
+  */
+
+  Boolean() 函数
+  当要转换的值是至少有一个字符的字符串、非 0 数字或对象时，Boolean() 函数将返回 true。
+  如果该值是空字符串、数字 0、undefined 或 null，它将返回 false。
+
+  var b1 = Boolean("");		//false - 空字符串
+  var b2 = Boolean("hello");		//true - 非空字符串
+  var b1 = Boolean(50);		//true - 非零数字
+  var b1 = Boolean(null);		//false - null
+  var b1 = Boolean(0);		//false - 零
+  var b1 = Boolean(new object());	//true - 对象
+
+  Number() 函数
+  Number() 函数的强制类型转换与 parseInt() 和 parseFloat() 方法的处理方式相似，
+  只是它转换的是整个值，而不是部分值。
+
+  Number(false)	0
+  Number(true)	1
+  Number(undefined)	NaN
+  Number(null)	0
+  Number("1.2")	1.2
+  Number("12")	12
+  Number("1.2.3")	NaN  //  整个字串值不能转换为数字
+  Number(new object())	NaN
+  Number(50)	50
+
+  String() 函数
+    var s1 = String(null);	//"null"
+    var oNull = null;
+    var s2 = oNull.toString();	//会引发错误
+  注：强制转换成字符串和调用 toString() 方法的唯一不同之处在于，
+  对 null 和 undefined 值强制类型转换可以生成字符串而不引发错误：
+
+  /*
+
+  ECMAScript  引用
+
+  */
+  String 对象的 valueOf() 方法和 toString() 方法都会返回 String 类型的原始值：
+  charAt() 和 charCodeAt() 方法
+  String 对象还拥有大量的方法。
+  首先，两个方法 charAt() 和 charCodeAt() 访问的是字符串中的单个字符。这两个方法都有一个参数，即要操作的字符的位置。
+  charAt() 方法返回的是包含指定位置处的字符的字符串：charCodeAt() 返回字符代码；
+  concat() 方法
+  接下来是 concat() 方法，用于把一个或多个字符串连接到 String 对象的原始值上。
+  该方法返回的是 String 原始值，保持原始的 String 对象不变：
+  indexOf() 和 lastIndexOf() 方法 检索字符在字符串中的索引位置。
+  localeCompare() 方法(不常用)
+  下一个方法是 localeCompare()，对字符串进行排序。该方法有一个参数 - 要进行比较的字符串，返回的是下列三个值之一：
+  如果 String 对象按照字母顺序排在参数中的字符串之前，返回负数。
+  如果 String 对象等于参数中的字符串，返回 0
+  如果 String 对象按照字母顺序排在参数中的字符串之后，返回正数。
+  slice() 和 substring()
+  ECMAScript 提供了两种方法从子串创建字符串值，即 slice() 和 substring()。
+  这两种方法返回的都是要处理的字符串的子串，都接受一个或两个参数。
+  第一个参数是要获取的子串的起始位置，第二个参数（如果使用的话）
+  是要获取子串终止前的位置（也就是说，获取终止位置处的字符不包括在返回的值内）。
+  如果省略第二个参数，终止位就默认为字符串的长度。
+  与 concat() 方法一样，slice() 和 substring() 方法都不改变
+  String 对象自身的值。它们只返回原始的 String 值，保持 String 对象不变。
+  区别：substring(-2)  将负数转换为0  slice(-3) 转换为相应的索引值
+  var oStringObject = new String("hello world");
+  alert(oStringObject.slice("-3"));		//输出 "rld"
+  alert(oStringObject.substring("-3"));	//输出 "hello world"
+  alert(oStringObject.slice("3, -4"));		//输出 "lo w"
+  alert(oStringObject.substring("3, -4"));	//输出 "hel"
+
+  instanceof 运算符
+  instanceof 运算符与 typeof 运算符相似，用于识别正在处理的对象的类型。
+  与 typeof 方法不同的是，instanceof 方法要求开发者明确地确认对象为某特定类型
+
+  var  str=new String('hello world!');
+
+  console.log(str instanceof string)  // true
+
+
+  /*
+
+  boolean  运算符
+
+  */
+  var  str='';
+  类似于  ！str
+  逻辑 NOT 运算符
+  在 ECMAScript 中，逻辑 NOT 运算符与 C 和 Java 中的逻辑 NOT 运算符相同，都由感叹号（!）表示。
+  与逻辑 OR 和逻辑 AND 运算符不同的是，逻辑 NOT 运算符返回的一定是 Boolean 值。
+  逻辑 NOT 运算符的行为如下：
+  如果运算数是对象，返回 false              !object   => false
+  如果运算数是数字 0，返回 true             !0        =>true
+  如果运算数是 0 以外的任何数字，返回 false   !232      =>false
+  如果运算数是 null，返回 true ！null=> true
+  如果运算数是 NaN，返回 true  !NaN => true
+  如果运算数是 undefined，发生错误   =>  error
+

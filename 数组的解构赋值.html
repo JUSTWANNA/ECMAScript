@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+
+    /*
+    *
+    * 1-9、两侧结构必须一致
+    * 2、右侧必须存在（两侧格式必须一致）
+    * 3、声明和赋值不可分开（必须同一行中实现）
+    *
+    *
+    * */
+
+    let [a,b,c]=[1,[2,4,5],6];
+    let [e,...f]=[1,2,3,4,56,7];
+    let [arr,json,str]=[[1,2,3,4,5,6],{"a":1,"b":2,"c":3},'hahahahah'];
+    console.log(a);
+    console.log(b);
+    console.log(c);
+    console.log('e:'+e);
+    console.log('f:'+f);
+    console.log(arr);
+    console.log(JSON.stringify(json));
+    console.log(str);
+
+
+
+    /**
+     * 1-9、对于new  set()  结构也可以考虑数组解构赋值法
+     * 2、事实上，只要某种数据结构具有 Iterator 接口，都可以采用数组形式的解构赋值
+     */
+
+    let [x,y,z]=new Set([1,[2,3,4],{"a":1,"b":2,"c":3}]);
+
+    console.log(x);
+    console.log(y);
+    console.log(z);
+
+    /*
+    *
+    * 1-9、利用generator函数中  存在  iterator  接口
+    * 2、函数进行解构赋值  判断左侧命名存在几个
+    * 3、然后通过循环  进行  运算
+    * 4、通过yield  返回数值  并且赋值给  左侧命名的
+    *
+    * */
+
+    function *fibs() {
+        let a = 0;
+        let b = 1;
+        while (true) {
+            yield a;
+            [a, b] = [b, a + b];
+        }
+    }
+
+    let [first, second, third, fourth, fifth, sixth] = fibs();
+    console.log(sixth);
+
+
+    /*
+    * 1-9、  解构赋值容许默认值
+    * 注：如果一个数组成员是null，默认值就不会生效，因为null不严格等于undefined。
+    *    如果默认值是一个表达式，那么这个表达式是惰性求值的，即只有在用到的时候，才会求值。
+    * */
+
+    let [x1,x2='2']=[1];
+    let [x3,x4='2']=[1,undefined];
+    console.log(x1+'+'+x2);
+    console.log(x3+'+'+x4);
+
+    function fn(){
+        alert(1)
+    }
+
+    let [x5=fn()]=[1];
+    console.log(x5);
+
+//    因为x能取到值，所以函数f根本不会执行。上面的代码其实等价于下面的代码。
+
+
+</script>
+
+</body>
+</html>

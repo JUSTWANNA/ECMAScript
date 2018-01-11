@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+
+    //面向对象
+    function user(name,pass){
+        this.name=name;
+        this.pass=pass;
+    }
+
+    user.prototype.showName=function(){
+        alert(this.name)
+    };
+    user.prototype.showPass=function(){
+        alert(this.pass);
+    };
+
+    function vipUser(name,pass,level){
+        user.call(this,name,pass);
+        this.level=level;
+    }
+    vipUser.prototype=new user();   //通过原型链 实例化函数
+    vipUser.prototype.constructor=vipUser;  // 构造函数
+    vipUser.prototype.showLevel=function(){  //  通过原型链创建函数
+        alert(this.level)
+    };
+//  继承
+
+
+    var test=new vipUser('yangmoumou','12345','3');
+    test.showName();
+    test.showPass();
+    test.showLevel();
+</script>
+</body>
+</html>

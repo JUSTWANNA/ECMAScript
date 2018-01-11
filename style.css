@@ -1,0 +1,91 @@
+CATALOG
+{
+    background-color: #ffffff;
+    width:540px;
+    min-height:300px;
+    margin: 50px auto 0;
+    border: 1px solid #ccc;
+    /*text-align: center;*/
+    cursor: pointer;
+}
+CD
+{
+    width: 525px;
+    display: block;
+    margin: 0 auto;
+    border-bottom: 1px solid #ccc;
+}
+TITLE
+{
+    color: #FF0000;
+    font-size: 13pt;
+    letter-spacing:5px;
+    line-height: 50px;
+    margin-top: 0;
+}
+TIME{
+    display: block;
+    text-align: left;
+}
+IMG{
+    display: block;
+    /*width:505px;*/
+    min-height:300px;
+    position: relative;
+    background:url('3452f21.jpg')center center;
+}
+IMG>p{
+    width: 100%;
+    height:50px;
+    line-height:50px;
+    background: rgba(06,02,05,0.5);
+    position: absolute;
+    bottom:0px;
+    color: white;
+    font-size: 15px;
+    text-indent: 30px;
+    letter-spacing: 5px;
+}
+LIST{
+    width: 525px;
+    height:100px;
+    margin: 0 auto;
+    display: block;
+    border-bottom: 1px solid #ccc;
+}
+LIST>P{
+    line-height:100px;
+}
+SMALL{
+    display: inline-block;
+    float: right;
+    margin-top:10px;
+    width:80px;
+    height:80px;
+    background: url("11.jpg")  center;
+}
+ARTIST
+{
+    color: #0000FF;
+    font-size: 20pt;
+}
+PRICE{
+    display:inline-block;
+    margin:20px 20px 8px 8px;
+}
+YEAR{
+    float: right;
+    margin-top: 20px;
+    margin-right:20px;
+}
+TITLE,OUNTRY,COUNTRY,TIME,IMG
+{
+    display: block;
+    color: #000000;
+    /*margin-left:20pt;*/
+    font-size: 13px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    /*margin-left:8px;*/
+    /*margin-right:8px;*/
+}
