@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    /**
+     * 1、RegExp 构造函数 § ⇧
+     在 ES5 中，RegExp构造函数的参数有两种情况。
+
+     ES6 改变了这种行为。如果RegExp构造函数第一个参数是一个正则对象，那么可以使用第二个参数指定修饰符。
+     而且，返回的正则表达式会忽略原有的正则表达式的修饰符，只使用新指定的修饰符。
+     */
+
+    var regex=new RegExp('xyz','i');
+    //  等价于
+    var regex1=/xyz/i;
+    var regex2=new RegExp(/abc/ig, 'i').flags;
+    console.log(regex);
+    console.log(regex1);
+    console.log(regex2);
+
+    /*
+    *
+    * 2、字符串的正则方法
+     字符串对象共有 4 个方法，可以使用正则表达式：match()、replace()、search()和split()。
+
+     ES6 将这 4 个方法，在语言内部全部调用RegExp的实例方法，从而做到所有与正则相关的方法，全都定义在RegExp对象上。
+
+     String.prototype.match 调用 RegExp.prototype[Symbol.match]
+     String.prototype.replace 调用 RegExp.prototype[Symbol.replace]
+     String.prototype.search 调用 RegExp.prototype[Symbol.search]
+     String.prototype.split 调用 RegExp.prototype[Symbol.split]
+
+     3、
+
+     ES6 新增了使用大括号表示 Unicode 字符，这种表示法在正则表达式中必须加上u修饰符，
+     才能识别当中的大括号，否则会被解读为量词。
+     （1）点字符
+     点（.）字符在正则表达式中，含义是除了换行符以外的任意单个字符。对于码点大于0xFFFF的 Unicode 字符，点字符不能识别，必须加上u修饰符。
+     （2）Unicode 字符表示法
+     ES6 新增了使用大括号表示 Unicode 字符，这种表示法在正则表达式中必须加上u修饰符，才能识别当中的大括号，否则会被解读为量词
+     （3）量词
+     使用u修饰符后，所有量词都会正确识别码点大于0xFFFF的 Unicode 字符。
+     （4）预定义模式
+     u修饰符也影响到预定义模式，能否正确识别码点大于0xFFFF的 Unicode 字符。
+
+     y 修饰符 § ⇧
+     除了u修饰符，ES6 还为正则表达式添加了y修饰符，叫做“粘连”（sticky）修饰符。
+
+     y修饰符的作用与g修饰符类似，也是全局匹配，后一次匹配都从上一次匹配成功的下一个位置开始。不同之处在于，
+     g修饰符只要剩余位置中存在匹配就可，而y修饰符确保匹配必须从剩余的第一个位置开始，这也就是“粘连”的涵义。
+    *
+    * */
+
+    console.log(/\u{61}/.test('a')) ;              //  false
+    console.log(/\u{61}/u.test('a'));             // true
+    console.log(/\u{20BB7}/u.test('𠮷'));       //  true
+    function codePointLength(text) {
+        var result = text.match(/[\s\S]/gu);
+        return result ? result.length : 0;
+    }
+    console.log(codePointLength('𠮷𠮷'));
+
+   var  reg='aaa_abc_a';
+    var r1=/a+/g;
+    var r2=/a+/y;
+    var r3=/[a-z]+_/y;
+    console.log(r1.exec(reg));  //返回的为数组  aaa
+    console.log(r2.exec(reg));  //返回的为数组  aaa
+    console.log(r1.exec(reg));  //返回的为数组  aa
+    console.log(r2.exec(reg));  //返回的为数组  null
+    console.log(r3.exec(reg));  //返回的为数组  aaa_
+    console.log(r3.exec(reg));  //返回的为数组  abc_
+
+
+    //考虑 ^开头
+
+
+
+    console.log(/^ba/y.exec());
+    //由于不能保证头部匹配，所以返回null。y修饰符的设计本意，就是让头部匹配的标志^在全局匹配中都有效。
+
+
+    //  存在非法字符
+
+
+    const  reg_y=/\s*(\+|[0-9]+)\s*/y;
+    const  reg_g=/\s*(\+|[0-9]+)\s*/g;
+
+    console.log(token_reg(reg_y, '3+4'));
+    console.log(token_reg(reg_g, '3+4'));
+    console.log(token_reg(reg_y, '2r+4'));
+    console.log(token_reg(reg_g, '3w+4'));
+
+    function token_reg(token_reg,str){
+        var result=[];
+        var match;
+        while(match=token_reg.exec(str)){
+            result.push(match[1]);
+        }
+        return result;
+    }
+
+    //sticky 属性 § ⇧
+    //与y修饰符相匹配，ES6 的正则对象多了sticky属性，表示是否设置了y修饰符。
+
+    var r = /hello\d/gy;
+    console.log(r.sticky);
+    console.log(r.flags);
+    /*s 修饰符：dotAll 模式
+    正则表达式中，点（.）是一个特殊字符，代表任意的单个字符，但是行终止符（line terminator character）除外。
+    以下四个字符属于”行终止符“。
+    U+000A 换行符（\n）
+    U+000D 回车符（\r）
+    U+2028 行分隔符（line separator）
+    U+2029 段分隔符（paragraph separator）*/
+
+    console.log(/foo.zip/.test('foo\nzip'));  //  false;
+    console.log(/foo[^]zip/.test('foo\nzip'));  //  true;
+
+    /*
+    * 引入/s修饰符，使得.可以匹配任意单个字符。  被称为  dotAll  模式；
+    * */
+    console.log(/foo.zip/s.test('foo\nzip'));  //  true
+    console.log(/foo.zip/s.dotAll);      //  true
+    console.log(/foo.zip/s.flags);     // s
+    /*
+    * ‘先行断言’
+    * */
+
+    var reg_c=/\d+(?=%)/;  //先行断言
+    var reg_d=/\d+(?!%)/;  //先行否定断言
+    console.log(reg_c.exec('100% jskdkskdlld')); //先行断言
+    console.log(reg_d.exec('jnsjdja 50 skdjk')); //先行否定断言
+    /*
+     * ‘后行断言’
+     * */
+
+    var reg_e=/(?<=\$)\d+/;  //后行断言
+    var reg_f=/(?<!\$)\d+/;  //后行否定断言
+    console.log(reg_e.exec(' jskdks $100 kdlld')); //后行断言
+    console.log(reg_f.exec('it’s is worth about ￥90')); //后行否定断言
+</script>
+</body>
+</html>
